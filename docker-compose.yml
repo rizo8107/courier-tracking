@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  courier-tracking:
+    build: .
+    image: courier-tracking:latest
+    container_name: courier-tracking
+    ports:
+      - "${PORT:-3456}:3456"
+    environment:
+      - NODE_ENV=production
+      - PORT=3456
+    restart: unless-stopped
+    # Required for Chromium in Docker
+    shm_size: "256mb"
+    security_opt:
+      - seccomp:unconfined
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3456/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s

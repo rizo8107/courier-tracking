@@ -1,0 +1,19 @@
+{
+  "name": "courier-tracking",
+  "version": "1.0.0",
+  "description": "Courier tracking API for ST Courier, India Post, Professional Courier, Blue Dart via Puppeteer scraping",
+  "main": "trackingServer.js",
+  "scripts": {
+    "start": "node trackingServer.js",
+    "track": "node track-cli.js"
+  },
+  "keywords": ["courier", "tracking", "puppeteer", "india-post", "st-courier"],
+  "author": "rizo8107",
+  "license": "MIT",
+  "dependencies": {
+    "puppeteer": "^24.42.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
