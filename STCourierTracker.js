@@ -56,7 +56,11 @@ async function trackCourier(trackingNumber, courierKey = 'st-courier') {
         '--disable-setuid-sandbox',
         '--disable-dev-shm-usage',
         '--disable-gpu',
-        '--single-process',
+        '--no-zygote',
+        '--disable-crash-reporter',
+        '--disable-extensions',
+        '--disable-software-rasterizer',
+        '--disable-features=VizDisplayCompositor',
       ],
     });
 
