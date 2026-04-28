@@ -1,6 +1,5 @@
 FROM node:20-slim
 
-# Install Chromium and all required system deps for Puppeteer
 RUN apt-get update && apt-get install -y \
     chromium \
     fonts-liberation \
@@ -30,9 +29,10 @@ RUN apt-get update && apt-get install -y \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
-# Skip Puppeteer's bundled Chromium download — use system Chromium instead
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium
+ENV NODE_ENV=production
+ENV PORT=3456
 
 WORKDIR /app
 
@@ -41,15 +41,7 @@ RUN npm ci --omit=dev
 
 COPY . .
 
-ENV PORT=3456
-ENV NODE_ENV=production
-
 EXPOSE 3456
-
-# Run as non-root user for security
-RUN groupadd -r appuser && useradd -r -g appuser -G audio,video appuser \
-    && chown -R appuser:appuser /app
-USER appuser
 
 HEALTHCHECK --interval=30s --timeout=10s --start-period=15s --retries=3 \
     CMD wget -qO- http://localhost:3456/health || exit 1

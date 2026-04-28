@@ -60,7 +60,8 @@ async function trackCourier(trackingNumber, courierKey = 'st-courier') {
         '--disable-crash-reporter',
         '--disable-extensions',
         '--disable-software-rasterizer',
-        '--disable-features=VizDisplayCompositor',
+        '--disable-features=Crashpad,VizDisplayCompositor',
+        '--crash-dumps-dir=/tmp',
       ],
     });
 
